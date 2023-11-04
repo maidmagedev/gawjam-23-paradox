@@ -45,31 +45,35 @@ public class SegBlockRotator : MonoBehaviour
             Debug.Log("[ACTION DENIED]: already rotating!");
             return;
         }
-        StartCoroutine(CheckForCollisions(rotationIncrement));
+        StartCoroutine(CollisionManagerAndRotator(rotationIncrement));
     }
-
+    
+    // called by UI buttons.
     public void RotateSection90Pos() {
         RotateSection(rotateVector);
     }
-
+    // called by UI buttons.
     public void RotateSection90Neg() {
         RotateSection(rotateVector * -1);
     }
 
-    IEnumerator CheckForCollisions(Vector3 rotationIncrement) {
-        isRotating = true;
+    IEnumerator CollisionManagerAndRotator(Vector3 rotationIncrement) {
+        isRotating = true; // this lockout variable needs to be adjusted to be GLOBAL. Currently it only locks out a single rotator, but we need to disable ALL rotators.
+        // disabling the trigger box collider allows us to refresh the collisions.
         triggerSegBlockDetector.enabled = false;
+        // clear the list of previously assigned children.
         collidedSegBlocks.Clear();
         yield return new WaitForEndOfFrame();
         triggerSegBlockDetector.enabled = true;
+        // wait a fraction of a second, this allows the OnTriggerEnter method to add all collided objects into a list.
         yield return new WaitForSeconds(0.1f);
 
-        // set parenthood
+        // set parenthood, allows us to rotate children by just rotating ourself.
         foreach(GameObject obj in collidedSegBlocks) {
             obj.transform.SetParent(this.transform);
         }
 
-        // Rotation 
+        // ROTATE THE SECTION
         float elapsedTime = 0.0f;
         float duration = 0.5f;
         Quaternion startingRotation = transform.rotation;
@@ -80,6 +84,7 @@ public class SegBlockRotator : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        // set to final rotation, since the while loop lerp can undershoot & overshoot
         transform.rotation = finalRotation;
 
 
