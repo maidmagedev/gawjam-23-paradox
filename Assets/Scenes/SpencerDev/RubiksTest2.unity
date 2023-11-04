@@ -10804,6 +10804,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegBlockContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 5278143125816374634, guid: 171540b38f132d2458e777fb5e1c781a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5884098106310800572, guid: 171540b38f132d2458e777fb5e1c781a,
         type: 3}
       propertyPath: m_RootOrder
