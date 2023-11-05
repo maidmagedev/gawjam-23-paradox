@@ -43,12 +43,12 @@ public class TopDownMovementComponent : MonoBehaviour
             horizontalInput *= moveLimiter;
             verticalInput *= moveLimiter;
         }
-        //move();
+        move();
     }
 
     private void FixedUpdate()
     {
-        moveAddForce();
+        //moveAddForce();
     }
 
     public void DisableMovement()
@@ -60,7 +60,7 @@ public class TopDownMovementComponent : MonoBehaviour
     private void move()
     {
         // Directly sets the player's velocity based on input
-        rb.velocity = new Vector2(horizontalInput * movementSpeed, verticalInput * movementSpeed);
+        rb.velocity = new Vector3(horizontalInput * movementSpeed, 0, verticalInput * movementSpeed);
     }
 
     private void moveAddForce()
@@ -75,7 +75,7 @@ public class TopDownMovementComponent : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - transform.position;
-        angle = Vector2.SignedAngle(Vector2.right, direction);
+        float angle = Vector2.SignedAngle(Vector2.right, direction);
         transform.eulerAngles = new Vector3(0, 0, angle);
         if (Mathf.Abs(angle) > 150)
         {

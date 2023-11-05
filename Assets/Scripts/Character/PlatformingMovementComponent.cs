@@ -16,7 +16,7 @@ public class PlatformingMovementComponent : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 11f;
     [SerializeField] float heldjumpSpeed = 5f;
-    [SerializeField] private bool SideView = true;
+    [SerializeField] private bool MovementDisabled = false;
 
     // floats
     private float mayJump = 0.1f;  // coyote time: make this longer for more coyote time
@@ -46,7 +46,7 @@ public class PlatformingMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!SideView)
+        if (!MovementDisabled)
         {
             // may be unnecessary...
             rb.velocity = Vector2.zero;
@@ -57,7 +57,7 @@ public class PlatformingMovementComponent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!SideView)
+        if (MovementDisabled)
         {
             // may be unnecessary...
             rb.velocity = Vector2.zero;
@@ -121,6 +121,6 @@ public class PlatformingMovementComponent : MonoBehaviour
 
     public void setSideView(bool sideView)
     {
-        SideView = sideView;
+        MovementDisabled = sideView;
     }
 }
