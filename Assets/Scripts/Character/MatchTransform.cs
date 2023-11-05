@@ -22,7 +22,7 @@ public class MatchTransform : MonoBehaviour
             endPosition.y = followTarget.position.y;
         }
         if (matchZ) {
-            endPosition.y = followTarget.position.z;
+            endPosition.z = followTarget.position.z;
         }
 
         this.transform.position = endPosition;

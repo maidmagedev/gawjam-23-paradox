@@ -13,7 +13,9 @@ public class PerspectiveManager : MonoBehaviour
 
     [SerializeField] private GameObject topDownCamera;
 
-    [SerializeField] private MatchTransform matchTransform;
+    [SerializeField] private MatchTransform matchTopToSide;
+    [SerializeField] private MatchTransform matchSideToTop;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,8 @@ public class PerspectiveManager : MonoBehaviour
         topDownController.ToggleMovement();
         sideScrollerCamera.SetActive(!sideScrollerCamera.activeSelf);
         topDownCamera.SetActive(!topDownCamera.activeSelf);
-        matchTransform.enabled = !matchTransform.enabled;
+        matchTopToSide.enabled = !matchTopToSide.enabled;
+        matchSideToTop.enabled = !matchSideToTop.enabled;
     }
 }
+

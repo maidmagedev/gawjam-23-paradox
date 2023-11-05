@@ -2799,7 +2799,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56648
+  m_Name: pb_Mesh49254
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3307,7 +3307,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh58042
+  m_Name: pb_Mesh49268
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3616,7 +3616,8 @@ MonoBehaviour:
   topDownController: {fileID: 1574887613}
   sideScrollerCamera: {fileID: 1276151211}
   topDownCamera: {fileID: 1162386340}
-  matchTransform: {fileID: 1574887614}
+  matchTopToSide: {fileID: 1574887614}
+  matchSideToTop: {fileID: 1426538376}
 --- !u!4 &1198397114
 Transform:
   m_ObjectHideFlags: 0
@@ -3756,7 +3757,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56684
+  m_Name: pb_Mesh49304
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3928,6 +3929,7 @@ GameObject:
   - component: {fileID: 1426538373}
   - component: {fileID: 1426538372}
   - component: {fileID: 1426538375}
+  - component: {fileID: 1426538376}
   m_Layer: 0
   m_Name: 2D Guy
   m_TagString: Untagged
@@ -3996,7 +3998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426538367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.49, y: 2, z: 0.72}
+  m_LocalPosition: {x: 1.49, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4095,6 +4097,22 @@ MonoBehaviour:
   jumpSpeed: 11
   heldjumpSpeed: 5
   MovementDisabled: 0
+--- !u!114 &1426538376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426538367}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a245f629674556c449fb053467cc74bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 1574887608}
+  matchX: 1
+  matchY: 1
+  matchZ: 1
 --- !u!1 &1550720452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4270,7 +4288,7 @@ MonoBehaviour:
   followTarget: {fileID: 1426538370}
   matchX: 1
   matchY: 1
-  matchZ: 0
+  matchZ: 1
 --- !u!54 &1574887615
 Rigidbody:
   m_ObjectHideFlags: 0

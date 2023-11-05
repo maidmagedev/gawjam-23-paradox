@@ -16,7 +16,7 @@ public class PlatformingMovementComponent : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 11f;
     [SerializeField] float heldjumpSpeed = 5f;
-    [SerializeField] private bool MovementDisabled = false;
+    [SerializeField] public bool MovementDisabled = false;
 
     // floats
     private float mayJump = 0.1f;  // coyote time: make this longer for more coyote time
@@ -123,5 +123,16 @@ public class PlatformingMovementComponent : MonoBehaviour
     public void ToggleMovement()
     {
         MovementDisabled = !MovementDisabled;
+
+        // jump to the bottom after top down
+        if (!MovementDisabled) {
+            StartCoroutine(ForcetoBottom());
+        }
+    }
+
+    IEnumerator ForcetoBottom() {
+        rb.gravityScale = 100;
+        yield return new WaitForSeconds(0.1f);
+        rb.gravityScale = 1;
     }
 }
