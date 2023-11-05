@@ -46,7 +46,7 @@ public class PlatformingMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!MovementDisabled)
+        if (MovementDisabled)
         {
             // may be unnecessary...
             rb.velocity = Vector2.zero;
@@ -84,6 +84,7 @@ public class PlatformingMovementComponent : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && (mayJump > 0f))
         {
+            print("jumping");
             timer = Time.time;
             isJumping = true;
             rb.velocity = new Vector2(0f, jumpSpeed);
@@ -119,8 +120,8 @@ public class PlatformingMovementComponent : MonoBehaviour
         }
     }
 
-    public void setSideView(bool sideView)
+    public void ToggleMovement()
     {
-        MovementDisabled = sideView;
+        MovementDisabled = !MovementDisabled;
     }
 }

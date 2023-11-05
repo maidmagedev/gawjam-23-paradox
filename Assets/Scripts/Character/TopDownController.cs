@@ -2,25 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-
-public class TopDownMovementComponent : MonoBehaviour
+public class TopDownController : MonoBehaviour
 {
-    Rigidbody2D rb;
+    private Rigidbody rb;
+    private CapsuleCollider bodyCollider;
     float horizontalInput;
     float verticalInput;
-    float moveLimiter = 0.7f;
+    float moveLimiter = 0.7f; 
     [SerializeField] private float movementSpeed = 8f;
-    private bool MovementDisabled = false;
+    [SerializeField] private bool MovementDisabled = false;
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;
-        // initializing the rigidbody
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb = GetComponent<Rigidbody>();
+        bodyCollider = GetComponent<CapsuleCollider>();
+        if (MovementDisabled)
+        {
+            rb.isKinematic = true;
+            rb.detectCollisions = false;
+            bodyCollider.enabled = false;
+        }
+        else
+        {
+            rb.useGravity = false;
+            this.transform.position = new Vector3(this.transform.position.x, 100, this.transform.position.z);
+        }
+        
     }
 
     // Update is called once per frame
@@ -29,47 +36,27 @@ public class TopDownMovementComponent : MonoBehaviour
         // Getting the Player's input
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
-        // Player Death
+        
         if (MovementDisabled)
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector3.zero;
             return;
         }
-
         if (horizontalInput != 0 && verticalInput != 0)
         {
             // limit movement speed diagonally, so you move at 70% speed
             horizontalInput *= moveLimiter;
             verticalInput *= moveLimiter;
         }
+
         move();
     }
-
-    private void FixedUpdate()
-    {
-        //moveAddForce();
-    }
-
-    public void DisableMovement()
-    {
-        rb.velocity = Vector2.zero;
-        MovementDisabled = true;
-    }
-
     private void move()
     {
         // Directly sets the player's velocity based on input
         rb.velocity = new Vector3(horizontalInput * movementSpeed, 0, verticalInput * movementSpeed);
     }
-
-    private void moveAddForce()
-    {
-        // movement with this method feels a little worse, but it avoids setting velocity directly
-        rb.AddForce(new Vector2(horizontalInput * 80, verticalInput * 80));
-    }
-
-
+    
     // Rotates the sprite based off mouse position--currently flips left or right only
     private void RotateSprite()
     {
@@ -102,5 +89,25 @@ public class TopDownMovementComponent : MonoBehaviour
             gameObject.transform.localScale = new Vector2(0.3f, gameObject.transform.localScale.y);
         }
 
+    }
+    
+    public void ToggleMovement()
+    {
+        MovementDisabled = !MovementDisabled;
+        if (MovementDisabled)
+        {
+            rb.isKinematic = true;
+            rb.detectCollisions = false;
+            rb.useGravity = true;
+            bodyCollider.enabled = false;
+        }
+        else
+        {
+            rb.isKinematic = false;
+            rb.detectCollisions = true;
+            rb.useGravity = false;
+            bodyCollider.enabled = true;
+            this.transform.position = new Vector3(this.transform.position.x, 100, this.transform.position.z);
+        }
     }
 }
