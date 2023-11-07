@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
@@ -84,7 +85,7 @@ public class PlatformingMovementComponent : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && (mayJump > 0f))
         {
-            print("jumping");
+            //print("jumping");
             timer = Time.time;
             isJumping = true;
             rb.velocity = new Vector2(0f, jumpSpeed);
@@ -124,10 +125,11 @@ public class PlatformingMovementComponent : MonoBehaviour
     {
         MovementDisabled = !MovementDisabled;
 
-        // jump to the bottom after top down
-        if (!MovementDisabled) {
-            StartCoroutine(ForcetoBottom());
-        }
+        // This was sketchy, and removed in favor of handling this in PerspectiveManager.cs instead.
+        // // jump to the bottom after top down
+        // if (!MovementDisabled) {
+        //     StartCoroutine(ForcetoBottom());
+        // }
     }
 
     IEnumerator ForcetoBottom() {

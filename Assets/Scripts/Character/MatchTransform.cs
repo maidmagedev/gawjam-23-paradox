@@ -14,7 +14,7 @@ public class MatchTransform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        Vector3 endPosition = new(0, 0, 0);
+        Vector3 endPosition = new(transform.position.x, transform.position.y, transform.position.z);
         if (matchX) {
             endPosition.x = followTarget.position.x;
         }
