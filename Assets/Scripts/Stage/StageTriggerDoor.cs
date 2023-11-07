@@ -21,6 +21,7 @@ public class StageTriggerDoor : MonoBehaviour
     }
 
     void OnTriggerEnter() {
+        print("test");
         transitionAnimator.StartTransition();
     }
 }
