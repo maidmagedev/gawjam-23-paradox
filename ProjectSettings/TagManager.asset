@@ -17,7 +17,7 @@ TagManager:
   - SegBlockRotationTrigger
   - SideScroller Ground
   - Environment3D
-  - 
+  - StageBoundingBox
   - 
   - 
   - 
