@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SegBlock
+  - two-way platform
   layers:
   - Default
   - TransparentFX
