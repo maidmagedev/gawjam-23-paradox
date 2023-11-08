@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class StageTriggerDoor : MonoBehaviour
 {
+    [Header("Auto-assigned on Game Start.")]
     [SerializeField] TransitionAnimator transitionAnimator;
+    public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,9 @@ public class StageTriggerDoor : MonoBehaviour
 
     void OnTriggerEnter() {
         print("test");
-        transitionAnimator.StartTransition();
+        //transitionAnimator.StartTransition();
+        if (myStage != null) {
+            myStage.FindConnectedStage();
+        }
     }
 }
