@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Cinemachine;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -57,8 +58,14 @@ public class PerspectiveManager : MonoBehaviour
 
         sideScrollerController.ToggleMovement();
         topDownController.ToggleMovement();
-        sideScrollerCamera.SetActive(!sideScrollerCamera.activeSelf);
-        topDownCamera.SetActive(!topDownCamera.activeSelf);
+        
+        // TODO: use cinemachine instead
+        sideScrollerCamera.GetComponent<CinemachineVirtualCamera>().Priority *= -1;
+        topDownCamera.GetComponent<CinemachineVirtualCamera>().Priority *= -1;
+        //sideScrollerCamera.SetActive(!sideScrollerCamera.activeSelf);
+        //topDownCamera.SetActive(!topDownCamera.activeSelf);
+        
+        
         matchTopToSide.enabled = !matchTopToSide.enabled;
         matchSideToTop.enabled = !matchSideToTop.enabled;
 
