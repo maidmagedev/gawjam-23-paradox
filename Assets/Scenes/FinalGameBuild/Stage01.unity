@@ -19379,6 +19379,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 3340
       objectReference: {fileID: 0}
+    - target: {fileID: 556087794, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -297.7846
+      objectReference: {fileID: 0}
     - target: {fileID: 990112497, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -19394,6 +19398,10 @@ PrefabInstance:
     - target: {fileID: 990112501, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
       propertyPath: m_VersionIndex
       value: 3180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042631064, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -297.7846
       objectReference: {fileID: 0}
     - target: {fileID: 1162386343, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
       propertyPath: m_CullingMask.m_Bits

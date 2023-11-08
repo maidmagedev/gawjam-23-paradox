@@ -21,9 +21,6 @@ public class StageBoundingBox : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 99, Color.blue);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            FindConnectedStage();
-        }
     }
 
     public void FindConnectedStage() {
@@ -32,6 +29,9 @@ public class StageBoundingBox : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 30f, stageLayer)) {
             Debug.Log("Confirm.");
+            Vector3 otherDoorPosition = hit.transform.gameObject.GetComponent<StageBoundingBox>().doors[0].transform.position;
+            GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
+            playerObj.transform.position = otherDoorPosition + (ray.direction * 2f) + new Vector3(0, 2, 0);
         } else {
             Debug.Log("none");
         }

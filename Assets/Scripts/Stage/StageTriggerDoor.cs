@@ -26,7 +26,13 @@ public class StageTriggerDoor : MonoBehaviour
         print("test");
         //transitionAnimator.StartTransition();
         if (myStage != null) {
-            myStage.FindConnectedStage();
+            StartCoroutine(WaitToTeleport());
+            transitionAnimator.PlayScreenWipe();
         }
+    }
+
+    IEnumerator WaitToTeleport() {
+        yield return new WaitForSeconds(0.5f);
+        myStage.FindConnectedStage();
     }
 }

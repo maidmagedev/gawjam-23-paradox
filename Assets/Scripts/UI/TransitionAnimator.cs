@@ -8,6 +8,8 @@ public class TransitionAnimator : MonoBehaviour
 {
     //public TransitionType transitionType = TransitionType.DipToBlack;
     [SerializeField] private Animator animator;
+    private bool transitionLockout;
+    public bool waitForStageSetup;
 
     public enum TransitionType {
         DiptoBlack,
@@ -42,6 +44,26 @@ public class TransitionAnimator : MonoBehaviour
         animator.CrossFade(transitionType.ToString(), 0);
     }
 
+    public void PlayScreenWipe() {
+        if (!transitionLockout) {
+            StartCoroutine(ScreenWipeHandler());
+        } else {
+            Debug.Log("transition is locked.");
+        }
+    }
+
+    private IEnumerator ScreenWipeHandler() {
+        transitionLockout = true;
+        animator.CrossFade(TransitionType.SwipeLeftBlack.ToString(), 0);
+        yield return new WaitForSeconds(1.0f);
+        // while (waitForStageSetup) {
+        //     // Camera is black for this period.
+        //     yield return new WaitForSeconds(0.1f);
+        // }
+        animator.CrossFade(TransitionType.SwipeRightBlack.ToString(), 0);
+        yield return new WaitForSeconds(1.0f);
+        transitionLockout = false;
+    }
 
     // IEnumerator PerformAnimation(float duration) {
     //     animator.CrossFade("DiptoBlack", 0);
