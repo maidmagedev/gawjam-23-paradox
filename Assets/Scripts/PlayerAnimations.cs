@@ -42,7 +42,7 @@ public class PlayerAnimations : MonoBehaviour
             // the jump animation wasnt that good, and its not easy to setup here.
             // we can check perspecMan.sideScrollerController.GetIsJumping();, but it'll get overwritten pretty easily with the current implementation :p
             // we'd need an animation queue setup.
-            
+
             if (!perspecMan.sideScrollerController.isGrounded) {
                 anim.CrossFade("air", 0);
             } else {
@@ -60,12 +60,16 @@ public class PlayerAnimations : MonoBehaviour
             //     anim.CrossFade("walk", 0);
             // }
         } else {
+            Vector3 playerMoveDir = perspecMan.topDownController.moveDir;
+            if (playerMoveDir != Vector3.zero) {
+                mesh.transform.localRotation = Quaternion.LookRotation(playerMoveDir);
+            }
             // some people do flatvelocity, but technically the 3d model cant jump. so it shouldnt matter.
-            // if (topRB.velocity != Vector3.zero) {
-            //     anim.CrossFade("walk", 0);
-            // } else {
-            //     anim.CrossFade("idle", 0);
-            // }
+            if (topRB.velocity != Vector3.zero) {
+                anim.CrossFade("walk", 0);
+            } else {
+                anim.CrossFade("idle", 0);
+            }
         }
     }
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TopDownController : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class TopDownController : MonoBehaviour
     float moveLimiter = 0.7f; 
     [SerializeField] private float movementSpeed = 8f;
     [SerializeField] private bool MovementDisabled = false;
+    public Vector3 moveDir; // used by PlayerAnimations.cs
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +31,6 @@ public class TopDownController : MonoBehaviour
             rb.useGravity = false;
             this.transform.position = new Vector3(this.transform.position.x, 100, this.transform.position.z);
         }
-        
     }
 
     // Update is called once per frame
@@ -37,6 +40,11 @@ public class TopDownController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         
+
+        // Some movement scripts use this to calculate velocity values, but this is just used for the animation script.
+        moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
+        //Debug.DrawRay(transform.position, moveDir * 5, Color.red);
+
         if (MovementDisabled)
         {
             rb.velocity = Vector3.zero;
