@@ -31,7 +31,8 @@ public class StageBoundingBox : MonoBehaviour
             Debug.Log("Confirm.");
             Vector3 otherDoorPosition = hit.transform.gameObject.GetComponent<StageBoundingBox>().doors[0].transform.position;
             GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
-            playerObj.transform.position = otherDoorPosition + (ray.direction * 2f) + new Vector3(0, 2, 0);
+            // ray.direction * 2 places ther player forward slightly
+            playerObj.transform.position = (ray.direction * 2f) + new Vector3(otherDoorPosition.x, playerObj.transform.position.y + 2, otherDoorPosition.z);
         } else {
             Debug.Log("none");
         }
