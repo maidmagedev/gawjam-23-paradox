@@ -17,7 +17,11 @@ public class CameraSystem : MonoBehaviour
         
     }
 
-    public void ShiftCamera(int direction) {
-        cameraHolder.position += new Vector3(direction * 40f, 0, 0);
+    public void ShiftCamera(bool doorFacingRight) {
+        int dir = 1;
+        if (doorFacingRight == false) {
+            dir = -1;
+        }
+        cameraHolder.position += new Vector3(dir * 40f, 0, 0);
     }
 }

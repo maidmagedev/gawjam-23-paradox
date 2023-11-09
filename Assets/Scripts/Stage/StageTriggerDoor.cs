@@ -8,6 +8,7 @@ public class StageTriggerDoor : MonoBehaviour
     [SerializeField] TransitionAnimator transitionAnimator;
     [SerializeField] CameraSystem cameraSystem;
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
+    public bool imFacingRight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,6 @@ public class StageTriggerDoor : MonoBehaviour
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
         myStage.FindConnectedStage();
-        cameraSystem.ShiftCamera(1);
+        cameraSystem.ShiftCamera(imFacingRight);
     }
 }
