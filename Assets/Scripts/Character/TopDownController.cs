@@ -12,7 +12,8 @@ public class TopDownController : MonoBehaviour
     float verticalInput;
     float moveLimiter = 0.7f; 
     [SerializeField] private float movementSpeed = 8f;
-    [SerializeField] private bool MovementDisabled = false;
+    [SerializeField] private bool MovementDisabled = true;
+    [SerializeField] private LayerMask targetlayer;
     public Vector3 moveDir; // used by PlayerAnimations.cs
 
     // Start is called before the first frame update
@@ -43,6 +44,20 @@ public class TopDownController : MonoBehaviour
         if (MovementDisabled)
         {
             rb.velocity = Vector3.zero;
+            
+            // move toward camera to keep 3d model visible in side-view
+            Debug.DrawRay(transform.position, moveDir * 3, Color.red);
+            float rayCastDistance = 3f;
+            Ray ray = new Ray(this.transform.position, moveDir);
+
+            RaycastHit hit;
+            LayerMask environment = LayerMask.NameToLayer("Environment3D");
+            int layerMaskval = environment.value;
+            if (Physics.Raycast(ray, out hit, rayCastDistance, targetlayer)) {
+                Debug.Log("Hit object:" + hit.collider.gameObject.name);
+
+                
+            }
             return;
         }
         if (horizontalInput != 0 && verticalInput != 0)
@@ -119,4 +134,5 @@ public class TopDownController : MonoBehaviour
         yield return new WaitForSeconds(3);
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 50, this.transform.position.z);
     }
+    
 }
