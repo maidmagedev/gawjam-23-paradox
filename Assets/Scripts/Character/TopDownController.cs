@@ -26,11 +26,6 @@ public class TopDownController : MonoBehaviour
             rb.detectCollisions = false;
             bodyCollider.enabled = false;
         }
-        else
-        {
-            rb.useGravity = false;
-            this.transform.position = new Vector3(this.transform.position.x, 100, this.transform.position.z);
-        }
     }
 
     // Update is called once per frame
@@ -115,7 +110,13 @@ public class TopDownController : MonoBehaviour
             rb.detectCollisions = true;
             rb.useGravity = false;
             bodyCollider.enabled = true;
-            this.transform.position = new Vector3(this.transform.position.x, 100, this.transform.position.z);
+            StartCoroutine(delayMoveUp());
         }
+    }
+
+    private IEnumerator delayMoveUp()
+    {
+        yield return new WaitForSeconds(3);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 50, this.transform.position.z);
     }
 }
