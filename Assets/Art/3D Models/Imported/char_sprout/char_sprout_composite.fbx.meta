@@ -18,7 +18,57 @@ ModelImporter:
   - first:
       74: -5252816984213320552
     second: idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel  Orange
+    second: {fileID: 2100000, guid: a7ad47b91e94cb144b4d841db5c4fc22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Army green
+    second: {fileID: 2100000, guid: 40a735e6fc18fc64b8cafe365527438c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Black
+    second: {fileID: 2100000, guid: 6cb0409a73f906148a85d9ca0c4e7e19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Brown
+    second: {fileID: 2100000, guid: 4f8d079c3316758458c793d19d882196, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Grey
+    second: {fileID: 2100000, guid: 508498ab3bbd3b044adda7cc80b7a419, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Navy Blue
+    second: {fileID: 2100000, guid: c89150480e3d9f349ad93213d78116fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Skin
+    second: {fileID: 2100000, guid: dbd2332d3a5e9bc40a29f4ca0537ecad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Skin.001
+    second: {fileID: 2100000, guid: a67dc89ddd7649449b5bfec621e50c9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cel Sky Blue
+    second: {fileID: 2100000, guid: 9c042989c130e594ca63d47eeaaa96b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Outline
+    second: {fileID: 2100000, guid: e4ff3021b913ce348b6e7f7374c93e6f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
