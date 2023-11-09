@@ -6,6 +6,7 @@ public class StageTriggerDoor : MonoBehaviour
 {
     [Header("Auto-assigned on Game Start.")]
     [SerializeField] TransitionAnimator transitionAnimator;
+    [SerializeField] CameraSystem cameraSystem;
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
 
     // Start is called before the first frame update
@@ -13,6 +14,9 @@ public class StageTriggerDoor : MonoBehaviour
     {
         if (transitionAnimator == null) {
             transitionAnimator = FindObjectOfType<TransitionAnimator>();
+        }
+        if (cameraSystem == null) {
+            cameraSystem = FindObjectOfType<CameraSystem>();
         }
     }
 
@@ -34,5 +38,6 @@ public class StageTriggerDoor : MonoBehaviour
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
         myStage.FindConnectedStage();
+        cameraSystem.ShiftCamera(1);
     }
 }
