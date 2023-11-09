@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class PlatformingMovementComponent : MonoBehaviour
 {
     // Components
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     PolygonCollider2D BodyCollider;
     BoxCollider2D FeetCollider;
 

@@ -8,9 +8,9 @@ using UnityEngine.Tilemaps;
 
 public class PerspectiveManager : MonoBehaviour
 {
-    [SerializeField] private PlatformingMovementComponent sideScrollerController;
+    [SerializeField] public PlatformingMovementComponent sideScrollerController;
 
-    [SerializeField] private TopDownController topDownController;
+    [SerializeField] public TopDownController topDownController;
 
     [SerializeField] private GameObject sideScrollerCamera;
 

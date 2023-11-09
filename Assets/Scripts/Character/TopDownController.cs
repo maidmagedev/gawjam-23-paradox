@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TopDownController : MonoBehaviour
 {
-    private Rigidbody rb;
+    public Rigidbody rb;
     private CapsuleCollider bodyCollider;
     float horizontalInput;
     float verticalInput;
