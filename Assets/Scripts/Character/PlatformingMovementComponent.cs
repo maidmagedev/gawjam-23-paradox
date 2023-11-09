@@ -26,6 +26,7 @@ public class PlatformingMovementComponent : MonoBehaviour
 
     // booleans
     private bool isJumping = false;
+    public bool isGrounded = true;
     
     // Start is called before the first frame update
     void Start()
@@ -80,7 +81,10 @@ public class PlatformingMovementComponent : MonoBehaviour
 
         if (FeetCollider.IsTouchingLayers(LayerMask.GetMask("SideScroller Ground")))
         {
+            isGrounded = true;
             mayJump = 0.1f; // coyote time: see above comment
+        } else {
+            isGrounded = false;
         }
 
         if (Input.GetButtonDown("Jump") && (mayJump > 0f))
@@ -141,4 +145,6 @@ public class PlatformingMovementComponent : MonoBehaviour
     public bool GetIsJumping() {
         return isJumping;
     }
+
+    
 }

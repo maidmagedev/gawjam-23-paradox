@@ -8,6 +8,8 @@ using UnityEngine.Tilemaps;
 
 public class PerspectiveManager : MonoBehaviour
 {
+    [Header("External References")]
+    [SerializeField] public PlayerAnimations playerAnims;
     [SerializeField] public PlatformingMovementComponent sideScrollerController;
 
     [SerializeField] public TopDownController topDownController;
@@ -76,10 +78,12 @@ public class PerspectiveManager : MonoBehaviour
                 Debug.Log("Player is floating, do warp.");
                 PositionWarpOnZ();
             }
+            playerAnims.SetupTopDownAnims();
         } else {
             // Going to Sidescroller
             PositionWarpOnY();
             currentPerspective = PerspectiveMode.sidescroller;
+            playerAnims.SetupSideScrollerAnims();
         }
     }
 
