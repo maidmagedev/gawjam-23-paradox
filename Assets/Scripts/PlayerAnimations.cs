@@ -35,15 +35,15 @@ public class PlayerAnimations : MonoBehaviour
             //     anim.CrossFade("jump", 0);
             // }
             if (Mathf.Abs(sideRB.velocity.x) > 0) {
-                //anim.CrossFade("walk", 0);
+                anim.CrossFade("walk", 0);
             }
         } else {
             // some people do flatvelocity, but technically the 3d model cant jump. so it shouldnt matter.
-            if (topRB.velocity != Vector3.zero) {
-                //anim.CrossFade("walk", 0);
-            } else {
-                //anim.CrossFade("idle", 0);
-            }
+            // if (topRB.velocity != Vector3.zero) {
+            //     anim.CrossFade("walk", 0);
+            // } else {
+            //     anim.CrossFade("idle", 0);
+            // }
         }
     }
 
