@@ -137,4 +137,8 @@ public class PlatformingMovementComponent : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = 1;
     }
+
+    public bool GetIsJumping() {
+        return isJumping;
+    }
 }
