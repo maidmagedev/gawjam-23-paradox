@@ -111,7 +111,6 @@ public class SegBlockRotator : MonoBehaviour
     }
 
     public void ReturnToOriginalParent() {
-        Debug.Log("RETURN! WHENCE YOU CAME YOU WHORES!!!");
         foreach (GameObject obj in collidedSegBlocks) {
             obj.transform.SetParent(segBlockContainer.transform);
         }
