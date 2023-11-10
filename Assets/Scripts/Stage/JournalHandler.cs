@@ -6,17 +6,17 @@ using UnityEngine;
 
 public class JournalHandler : MonoBehaviour
 {
-    [SerializeField] List<int> ownedJournalIDs = new List<int>();
+    public List<int> ownedJournalIDs = new List<int>();
     [SerializeField] TextMeshProUGUI textBody;
     [SerializeField] TextMeshProUGUI textPageCount;
+    [SerializeField] GameObject journalContainer;
     public int displayedID;
     // Start is called before the first frame update
     void Start()
     {
         //textBody.text = JournalEntries.journalEntries.GetValueOrDefault(0);   
         ownedJournalIDs.Add(0);
-        ownedJournalIDs.Add(1);
-        ownedJournalIDs.Add(2);
+
 
         UpdateUI();
     }
@@ -24,6 +24,9 @@ public class JournalHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J)) {
+            journalContainer.SetActive(!journalContainer.activeSelf);
+        }
     }
 
     public void GetPage(int journalID) {
@@ -31,7 +34,9 @@ public class JournalHandler : MonoBehaviour
     }
 
     public void AddPage(int journalID) {
+        Debug.Log("Added journalID: " + journalID);
         ownedJournalIDs.Add(journalID);
+        UpdateUI();
     }
 
     public void UpdateUI() {
