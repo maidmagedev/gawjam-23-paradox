@@ -6021,6 +6021,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1574887613, guid: 3361aee010c6f4c4c9b9907dfadd55db, type: 3}
+      propertyPath: targetlayer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 2332395215103116090, guid: 3361aee010c6f4c4c9b9907dfadd55db,
         type: 3}
       propertyPath: m_Pivot.x
