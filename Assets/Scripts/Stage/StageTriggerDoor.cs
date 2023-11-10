@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +43,19 @@ public class StageTriggerDoor : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (myStage != null) {
+            StartCoroutine(WaitToTeleport());
+            transitionAnimator.PlayScreenWipe();
+        }
+    }
+
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
         myStage.FindConnectedStage(this);
+        // move the 2d guy
         cameraSystem.ShiftCamera(facingDirection);
     }
+    
 }
