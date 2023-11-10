@@ -133,7 +133,7 @@ public class TopDownController : MonoBehaviour
 
     private IEnumerator delayMoveUp()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 50, this.transform.position.z);
     }
     

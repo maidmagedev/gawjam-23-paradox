@@ -13,6 +13,7 @@ public class StageTriggerDoor : MonoBehaviour
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
     public FacingDirection facingDirection;
     bool cooldown = false;
+    [Header("IGNORE THESE FOR THIS BUILD")]
     [SerializeField] GameObject popupText; // can be null, only if applicable (designed for sidescroller, awayfromside direction)
     public float textPromptTimer = 0.0f;
 
@@ -109,7 +110,7 @@ public class StageTriggerDoor : MonoBehaviour
 
     IEnumerator SelfCooldown() {
         cooldown = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         cooldown = false;
     }
 
