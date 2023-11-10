@@ -142,11 +142,16 @@ public class PerspectiveManager : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 45f, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 45f, doorLayer)) {
-            Debug.Log("hit door");
+            //Debug.Log("hit door");
             StageTriggerDoor foundDoor = hit.transform.gameObject.GetComponent<StageTriggerDoor>();
+            if (foundDoor == null) {
+                Debug.Log("Hit invalid object, for some reason: [" + hit.transform.gameObject.name + "]");
+                return;
+            }
 
             if (foundDoor.facingDirection == StageTriggerDoor.FacingDirection.awayFromSide) {
                 // button prompt to enter
+                foundDoor.EnablePrompt();
             } else if (foundDoor.facingDirection != StageTriggerDoor.FacingDirection.towardsSide) {
                 // so,facing direction = left and right
                 foundDoor.SwapRooms();

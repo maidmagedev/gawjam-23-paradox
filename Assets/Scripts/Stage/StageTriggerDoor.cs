@@ -13,6 +13,8 @@ public class StageTriggerDoor : MonoBehaviour
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
     public FacingDirection facingDirection;
     bool cooldown = false;
+    [SerializeField] GameObject popupText; // can be null, only if applicable (designed for sidescroller, awayfromside direction)
+    public float textPromptTimer = 0.0f;
 
     public enum FacingDirection {
         right,
@@ -37,8 +39,22 @@ public class StageTriggerDoor : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         
+        if (popupText != null) {
+            if (textPromptTimer <= 0) {
+                popupText.SetActive(false);
+            } else {
+                textPromptTimer -= Time.deltaTime;
+            }
+        }
+
+        if (popupText != null && popupText.activeSelf) {
+            if (Input.GetKeyDown(KeyCode.E)) {
+                Debug.Log("Interact with door");
+                SwapRooms();
+            }
+        }
     }
 
     void OnTriggerEnter() {
@@ -93,4 +109,11 @@ public class StageTriggerDoor : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         cooldown = false;
     }
+
+    public void EnablePrompt() {
+        popupText.SetActive(true);
+        textPromptTimer = 1.0f;
+    }
+
+
 }
