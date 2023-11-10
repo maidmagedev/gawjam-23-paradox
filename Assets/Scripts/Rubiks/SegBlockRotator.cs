@@ -59,19 +59,8 @@ public class SegBlockRotator : MonoBehaviour
 
     IEnumerator CollisionManagerAndRotator(Vector3 rotationIncrement) {
         isRotating = true; // this lockout variable needs to be adjusted to be GLOBAL. Currently it only locks out a single rotator, but we need to disable ALL rotators.
-        // disabling the trigger box collider allows us to refresh the collisions.
-        triggerSegBlockDetector.enabled = false;
-        // clear the list of previously assigned children.
-        collidedSegBlocks.Clear();
-        yield return new WaitForEndOfFrame();
-        triggerSegBlockDetector.enabled = true;
-        // wait a fraction of a second, this allows the OnTriggerEnter method to add all collided objects into a list.
-        yield return new WaitForSeconds(0.1f);
-
-        // set parenthood, allows us to rotate children by just rotating ourself.
-        foreach(GameObject obj in collidedSegBlocks) {
-            obj.transform.SetParent(this.transform);
-        }
+        AdoptSegBlocks();
+        yield return new WaitForSeconds(0.2f);
 
         // ROTATE THE SECTION
         float elapsedTime = 0.0f;
@@ -97,6 +86,26 @@ public class SegBlockRotator : MonoBehaviour
 
         if (col.gameObject.layer == 6) {
             collidedSegBlocks.Add(col.gameObject);
+        }
+    }
+
+    public void AdoptSegBlocks() {
+        StartCoroutine(AdoptSegBlocksHandler());
+    }
+
+    private IEnumerator AdoptSegBlocksHandler() {
+        // disabling the trigger box collider allows us to refresh the collisions.
+        triggerSegBlockDetector.enabled = false;
+        // clear the list of previously assigned children.
+        collidedSegBlocks.Clear();
+        yield return new WaitForEndOfFrame();
+        triggerSegBlockDetector.enabled = true;
+        // wait a fraction of a second, this allows the OnTriggerEnter method to add all collided objects into a list.
+        yield return new WaitForSeconds(0.1f);
+
+        // set parenthood, allows us to rotate children by just rotating ourself.
+        foreach(GameObject obj in collidedSegBlocks) {
+            obj.transform.SetParent(this.transform);
         }
     }
 }
