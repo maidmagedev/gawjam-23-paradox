@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageTriggerDoor : MonoBehaviour
@@ -11,6 +12,7 @@ public class StageTriggerDoor : MonoBehaviour
     [SerializeField] AnimationEventAdoption aeAdopter;
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
     public FacingDirection facingDirection;
+    bool cooldown = false;
 
     public enum FacingDirection {
         right,
@@ -41,19 +43,21 @@ public class StageTriggerDoor : MonoBehaviour
 
     void OnTriggerEnter() {
         //transitionAnimator.StartTransition();
-        if (myStage != null) {
-            StartCoroutine(WaitToTeleport());
-            transitionAnimator.PlayScreenWipe();
-        }
+        //Debug.Log("enter normal");
+        SwapRooms();
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (myStage != null) {
-            StartCoroutine(WaitToTeleport());
-            transitionAnimator.PlayScreenWipe();
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D col)
+    // {
+    //     if (col is PolygonCollider2D) {
+    //         return;
+    //     }
+    //     Debug.Log("enter 2d");
+    //     if (myStage != null) {
+    //         StartCoroutine(WaitToTeleport());
+    //         transitionAnimator.PlayScreenWipe();
+    //     }
+    // }
 
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
@@ -67,10 +71,26 @@ public class StageTriggerDoor : MonoBehaviour
             // just shift the position backwards.
             GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
             playerObj.transform.position -= new Vector3(0, 0, 20);
+            myStage.FindConnectedStageAndDontMove(this);
         } else {
             myStage.FindConnectedStage(this);
             cameraSystem.ShiftCamera(facingDirection);
         }
     }
-    
+    public void SwapRooms() {
+        if (myStage != null) {
+            if (cooldown) {
+                return;
+            }
+            StartCoroutine(SelfCooldown());
+            StartCoroutine(WaitToTeleport());
+            transitionAnimator.PlayScreenWipe();
+        }
+    }
+
+    IEnumerator SelfCooldown() {
+        cooldown = true;
+        yield return new WaitForSeconds(2.0f);
+        cooldown = false;
+    }
 }

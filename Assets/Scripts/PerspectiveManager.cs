@@ -23,9 +23,11 @@ public class PerspectiveManager : MonoBehaviour
 
 
     [Header("Environment Data")]
-    [SerializeField] Tilemap tilemap;
+    //[SerializeField] Tilemap tilemap;
     [SerializeField] Transform origin;
     [SerializeField] LayerMask targetLayer;
+    [SerializeField] LayerMask doorLayer;
+
 
     [Header("Tracking")]
     public PerspectiveMode currentPerspective;
@@ -50,7 +52,9 @@ public class PerspectiveManager : MonoBehaviour
             swapPerspectives();
         }
 
-       
+        if (currentPerspective == PerspectiveMode.sidescroller) {
+            SidesScrollerDoorDetector();
+        }
     }
 
 
@@ -128,8 +132,25 @@ public class PerspectiveManager : MonoBehaviour
             Debug.DrawRay(ray.origin, Vector3.down * 1.25f, Color.cyan);
             return !Physics.Raycast(ray, out _, 1.5f, targetLayer);
         } else {
-            Debug.Log("[IGNORE]: Dummy value, use not applicable for TopDown->SideScroller.");
+            //Debug.Log("[IGNORE]: Dummy value, use not applicable for TopDown->SideScroller.");
             return false; 
+        }
+    }
+
+    void SidesScrollerDoorDetector() {
+        Ray ray = new Ray(sideScrollerController.transform.position, Vector3.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 45f, Color.red);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 45f, doorLayer)) {
+            Debug.Log("hit door");
+            StageTriggerDoor foundDoor = hit.transform.gameObject.GetComponent<StageTriggerDoor>();
+
+            if (foundDoor.facingDirection == StageTriggerDoor.FacingDirection.awayFromSide) {
+                // button prompt to enter
+            } else if (foundDoor.facingDirection != StageTriggerDoor.FacingDirection.towardsSide) {
+                // so,facing direction = left and right
+                foundDoor.SwapRooms();
+            } 
         }
     }
     
