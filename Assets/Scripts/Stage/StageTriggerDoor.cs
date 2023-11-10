@@ -80,13 +80,16 @@ public class StageTriggerDoor : MonoBehaviour
         
         // move the 2d guy
         if (facingDirection == FacingDirection.towardsSide) {
-            //aeAdopter.MoveRowB_ToFront();
+            aeAdopter.MoveRowB_ToBack();
+            GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
+            playerObj.transform.position += new Vector3(0, 0, 10);
+            myStage.FindConnectedStageAndDontMove(this);
         } else if (facingDirection == FacingDirection.awayFromSide) {
             aeAdopter.MoveRowB_ToFront();
             // we dont need to move the player to the other grid for the Z axis movements, that actually happens automatically.
             // just shift the position backwards.
             GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
-            playerObj.transform.position -= new Vector3(0, 0, 20);
+            playerObj.transform.position -= new Vector3(0, 0, 15);
             myStage.FindConnectedStageAndDontMove(this);
         } else {
             myStage.FindConnectedStage(this);

@@ -25,6 +25,10 @@ public class AnimationEventAdoption : MonoBehaviour
         anim.CrossFade("MoveRowB_ToFront", 0);
     }
 
+    public void MoveRowB_ToBack() {
+        anim.CrossFade("MoveRowB_ToBack", 0);
+    }
+
     public void ReturnToOriginalParent() {
         foreach(SegBlockRotator currentRow in rows) {
             currentRow.ReturnToOriginalParent();

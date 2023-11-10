@@ -88,6 +88,8 @@ public class StageBoundingBox : MonoBehaviour
             Vector3 otherDoorPosition = nextDoor.transform.position;
 
             GameObject playerObjTD = FindObjectOfType<TopDownController>().gameObject;
+            StartCoroutine(TurnOffPlayerCollider(playerObjTD.GetComponent<CapsuleCollider>()));
+            
             GameObject playerObjSide = FindObjectOfType<PlatformingMovementComponent>().gameObject;
 
             my2DEnviro.SetActive(false); // disable my 2D map.
@@ -96,4 +98,9 @@ public class StageBoundingBox : MonoBehaviour
         }
     }
 
+    IEnumerator TurnOffPlayerCollider(CapsuleCollider bc) {
+        bc.enabled = false;
+        yield return new WaitForSeconds(2.5f);
+        bc.enabled = true;
+    }
 }
