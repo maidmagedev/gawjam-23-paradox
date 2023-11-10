@@ -8,6 +8,7 @@ public class StageTriggerDoor : MonoBehaviour
     [Header("Auto-assigned on Game Start.")]
     [SerializeField] TransitionAnimator transitionAnimator;
     [SerializeField] CameraSystem cameraSystem;
+    [SerializeField] AnimationEventAdoption aeAdopter;
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
     public FacingDirection facingDirection;
 
@@ -26,6 +27,9 @@ public class StageTriggerDoor : MonoBehaviour
         }
         if (cameraSystem == null) {
             cameraSystem = FindObjectOfType<CameraSystem>();
+        }
+        if (aeAdopter == null) {
+            aeAdopter = FindObjectOfType<AnimationEventAdoption>();
         }
     }
 
@@ -53,9 +57,20 @@ public class StageTriggerDoor : MonoBehaviour
 
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
-        myStage.FindConnectedStage(this);
+        
         // move the 2d guy
-        cameraSystem.ShiftCamera(facingDirection);
+        if (facingDirection == FacingDirection.towardsSide) {
+            //aeAdopter.MoveRowB_ToFront();
+        } else if (facingDirection == FacingDirection.awayFromSide) {
+            aeAdopter.MoveRowB_ToFront();
+            // we dont need to move the player to the other grid for the Z axis movements, that actually happens automatically.
+            // just shift the position backwards.
+            GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
+            playerObj.transform.position -= new Vector3(0, 0, 20);
+        } else {
+            myStage.FindConnectedStage(this);
+            cameraSystem.ShiftCamera(facingDirection);
+        }
     }
     
 }

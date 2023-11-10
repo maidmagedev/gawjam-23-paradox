@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class AnimationEventAdoption : MonoBehaviour
 {
-    List<GameObject> Rows = new List<GameObject>();
+    public List<SegBlockRotator> rows = new List<SegBlockRotator>();
+    [SerializeField] Animator anim;
 
-    public void Adopt() {
+    public void AdoptAllFromCurrentRows() {
         Debug.Log("Adopt.");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        foreach(SegBlockRotator currentRow in rows) {
+            currentRow.AdoptSegBlocks();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        // if (Input.GetKeyDown(KeyCode.Alpha4)) {
+        //     Debug.Log("activate anim");
+        //     anim.CrossFade("MoveRowB_ToFront", 0);
+        // }
     }
+
+    public void MoveRowB_ToFront() {
+        anim.CrossFade("MoveRowB_ToFront", 0);
+    }
+
+    public void ReturnToOriginalParent() {
+        foreach(SegBlockRotator currentRow in rows) {
+            currentRow.ReturnToOriginalParent();
+        }
+    }   
 }

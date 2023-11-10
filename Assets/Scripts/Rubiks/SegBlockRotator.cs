@@ -13,6 +13,7 @@ public class SegBlockRotator : MonoBehaviour
     [SerializeField] private BoxCollider triggerSegBlockDetector;
     public List<GameObject> collidedSegBlocks = new List<GameObject>(); // seg blocks currently in area.
     [SerializeField] LayerMask segBlockLayer;
+    [SerializeField] GameObject segBlockContainer;
 
     [Header("!!! SET THIS BASED ON THE CURRENT ROTATOR'S POSITION!!! ")]
     [SerializeField] Vector3 rotateVector;
@@ -106,6 +107,13 @@ public class SegBlockRotator : MonoBehaviour
         // set parenthood, allows us to rotate children by just rotating ourself.
         foreach(GameObject obj in collidedSegBlocks) {
             obj.transform.SetParent(this.transform);
+        }
+    }
+
+    public void ReturnToOriginalParent() {
+        Debug.Log("RETURN! WHENCE YOU CAME YOU WHORES!!!");
+        foreach (GameObject obj in collidedSegBlocks) {
+            obj.transform.SetParent(segBlockContainer.transform);
         }
     }
 }

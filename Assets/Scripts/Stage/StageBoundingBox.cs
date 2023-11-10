@@ -8,7 +8,7 @@ public class StageBoundingBox : MonoBehaviour
     public List<StageTriggerDoor> doors = new List<StageTriggerDoor>();
     public String chamberName;
     public LayerMask doorLayer;
-    bool showRay;
+    [SerializeField] bool showRay;
     private Ray myRay;
 
     public void Start() {
@@ -42,9 +42,9 @@ public class StageBoundingBox : MonoBehaviour
             Debug.Log(hit.transform.gameObject.name);
             //StageBoundingBox nextBoundingBox = hit.transform.gameObject.GetComponent<StageBoundingBox>();
             StageTriggerDoor nextDoor = hit.transform.gameObject.GetComponent<StageTriggerDoor>();
-            StageBoundingBox nextBoundingBox = nextDoor.myStage;
+            //StageBoundingBox nextBoundingBox = nextDoor.myStage;
 
-            Debug.Log(chamberName + " Confirmed hit, transfering player to " + nextBoundingBox.chamberName);
+            //Debug.Log(chamberName + " Confirmed hit, transfering player to " + nextBoundingBox.chamberName);
             Vector3 otherDoorPosition = nextDoor.transform.position;
 
             GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
