@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,17 +50,14 @@ public class TopDownController : MonoBehaviour
             //Debug.DrawRay(transform.position, moveDir * 1, Color.red);
             float rayCastDistance = 1f;
             Ray ray = new Ray(this.transform.position, moveDir);
-
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, rayCastDistance, targetlayer)) {
+            if (Physics.Raycast(ray, out hit, rayCastDistance, targetlayer))
+            {
                 //Debug.Log("Hit object:" + hit.collider.gameObject.name);
                 float hit_zval = hit.collider.gameObject.transform.position.z;
                 float player_zval = this.transform.position.z;
-                if (player_zval >= hit_zval)
-                {
-                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, hit_zval - 1);
-                    print("subtracting from player's z transform to keep the model in view");
-                }
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
+                print("subtracting from player's z transform to keep the model in view");
 
             }
             return;
