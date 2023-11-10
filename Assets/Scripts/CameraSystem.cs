@@ -17,11 +17,20 @@ public class CameraSystem : MonoBehaviour
         
     }
 
-    public void ShiftCamera(bool doorFacingRight) {
-        int dir = 1;
-        if (doorFacingRight == false) {
-            dir = -1;
+    public void ShiftCamera(StageTriggerDoor.FacingDirection faceDir) {
+        switch (faceDir) {
+            case StageTriggerDoor.FacingDirection.left:
+                    cameraHolder.position += new Vector3(-1 * 40f, 0, 0);
+                break;
+            case StageTriggerDoor.FacingDirection.right:
+                    cameraHolder.position += new Vector3(1 * 40f, 0, 0);
+                break;
+            case StageTriggerDoor.FacingDirection.awayFromSide:
+                Debug.Log("not implemented.");
+                break;
+            case StageTriggerDoor.FacingDirection.towardsSide:
+                Debug.Log("not implemented.");
+                break;
         }
-        cameraHolder.position += new Vector3(dir * 40f, 0, 0);
     }
 }

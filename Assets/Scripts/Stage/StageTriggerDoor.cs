@@ -8,7 +8,14 @@ public class StageTriggerDoor : MonoBehaviour
     [SerializeField] TransitionAnimator transitionAnimator;
     [SerializeField] CameraSystem cameraSystem;
     public StageBoundingBox myStage; // automatically assigned by StageBoundingBox on level start.
-    public bool imFacingRight = true;
+    public FacingDirection facingDirection;
+
+    public enum FacingDirection {
+        right,
+        left,
+        awayFromSide,
+        towardsSide,
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +35,6 @@ public class StageTriggerDoor : MonoBehaviour
     }
 
     void OnTriggerEnter() {
-        print("test");
         //transitionAnimator.StartTransition();
         if (myStage != null) {
             StartCoroutine(WaitToTeleport());
@@ -38,7 +44,7 @@ public class StageTriggerDoor : MonoBehaviour
 
     IEnumerator WaitToTeleport() {
         yield return new WaitForSeconds(0.5f);
-        myStage.FindConnectedStage();
-        cameraSystem.ShiftCamera(imFacingRight);
+        myStage.FindConnectedStage(this);
+        cameraSystem.ShiftCamera(facingDirection);
     }
 }

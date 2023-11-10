@@ -7,7 +7,9 @@ public class StageBoundingBox : MonoBehaviour
 {
     public List<StageTriggerDoor> doors = new List<StageTriggerDoor>();
     public String chamberName;
-    public LayerMask stageLayer;
+    public LayerMask doorLayer;
+    bool showRay;
+    private Ray myRay;
 
     public void Start() {
         foreach(StageTriggerDoor door in doors) {
@@ -16,22 +18,38 @@ public class StageBoundingBox : MonoBehaviour
     }
 
     void Update() {
-        if (doors != null) {
-            Ray ray = new Ray(doors[0].transform.position, doors[0].transform.TransformDirection(Vector3.forward));
-            Debug.DrawRay(ray.origin, ray.direction * 99, Color.blue);
+        // if (doors != null) {
+        //     Ray ray = new Ray(doors[0].transform.position, doors[0].transform.TransformDirection(Vector3.forward));
+        //     if (showRay) {
+        //         Debug.DrawRay(ray.origin, ray.direction * 99, Color.blue);
+        //     }
+        // }
+
+        if (showRay) {
+            Debug.DrawRay(myRay.origin, myRay.direction * 99, Color.blue);
         }
 
     }
 
-    public void FindConnectedStage() {
-        Ray ray = new Ray(doors[0].transform.position, doors[0].transform.TransformDirection(Vector3.forward));
+    public void FindConnectedStage(StageTriggerDoor door) {
+        Ray ray = new Ray(door.transform.position + new Vector3(0, 10, 0), door.transform.TransformDirection(Vector3.forward));
+        Debug.DrawRay(ray.origin, ray.direction * 99, Color.blue);
         RaycastHit hit;
+        //showRay = true;
+        myRay = ray;
 
-        if (Physics.Raycast(ray, out hit, 30f, stageLayer)) {
-            Debug.Log("Confirm.");
-            Vector3 otherDoorPosition = hit.transform.gameObject.GetComponent<StageBoundingBox>().doors[0].transform.position;
+        if (Physics.Raycast(ray, out hit, 99f, doorLayer)) {
+            Debug.Log(hit.transform.gameObject.name);
+            //StageBoundingBox nextBoundingBox = hit.transform.gameObject.GetComponent<StageBoundingBox>();
+            StageTriggerDoor nextDoor = hit.transform.gameObject.GetComponent<StageTriggerDoor>();
+            StageBoundingBox nextBoundingBox = nextDoor.myStage;
+
+            Debug.Log(chamberName + " Confirmed hit, transfering player to " + nextBoundingBox.chamberName);
+            Vector3 otherDoorPosition = nextDoor.transform.position;
+
             GameObject playerObj = FindObjectOfType<TopDownController>().gameObject;
-            // ray.direction * 2 places ther player forward slightly
+
+            // ray.direction * 2 places the player forward slightly
             playerObj.transform.position = (ray.direction * 2f) + new Vector3(otherDoorPosition.x, playerObj.transform.position.y + 2, otherDoorPosition.z);
         } else {
             Debug.Log("none");
